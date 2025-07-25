@@ -1,0 +1,72 @@
+name: CI
+on:
+  push: { branches: [ main ] }
+  pull_request:
+  release: { types: [ published ] }
+
+jobs:
+  fmt:
+    name: Fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.22' }
+      - uses: oven-sh/setup-bun@v1
+
+      - run: |
+          bun install
+          mkdir -p dist
+          touch dist/index.html
+        working-directory: ui
+
+      - run: make install
+      - run: make fmt
+
+      - run: git diff --exit-code
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.22' }
+
+      - run: |
+          mkdir -p ui/dist
+          touch ui/dist/index.html
+
+      - uses: golangci/golangci-lint-action@v6
+        with: { version: 'v1.59' }
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.22' }
+      - uses: oven-sh/setup-bun@v1
+
+      - run: make build-ui
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.22' }
+      - uses: oven-sh/setup-bun@v1
+
+      - run: |
+          mkdir -p ui/dist
+          touch ui/dist/index.html
+
+      - run: make test-coverage
+
+      - uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.out
+          token: ${{ secrets.CODECOV_TOKEN }}
