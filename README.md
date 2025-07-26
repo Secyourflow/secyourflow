@@ -140,8 +140,12 @@ make dev            # Start backend development server
 ```bash
 go build
 ```
-OR 
-paste this in terminal
+If error is 
+```
+/bin/sh: 1: gci: not found
+make: *** [Makefile:13: fmt] Error 127
+```
+Then just paste this in terminal
 ```
 export PATH=$PATH:$(go env GOPATH)/bin
 ```
