@@ -3,6 +3,7 @@ install:
 	@echo "Installing..."
 	go install github.com/bombsimon/wsl/v4/cmd...@v4.4.1
 	go install mvdan.cc/gofumpt@v0.6.0
+	go install github.com/daixiang0/gci@v0.13.4
 	go install github.com/daixiang0/gci@latest
 
 .PHONY: fmt

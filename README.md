@@ -140,6 +140,11 @@ make dev            # Start backend development server
 ```bash
 go build
 ```
+OR 
+paste this in terminal
+```
+export PATH=$PATH:$(go env GOPATH)/bin
+```
 
 **Run backend tests:**
 
