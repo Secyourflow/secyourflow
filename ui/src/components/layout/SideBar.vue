@@ -24,12 +24,7 @@ const catalystStore = useCatalystStore()
     "
   >
     <div class="flex h-[57px] items-center border-b bg-background">
-      <Secyourflow
-  :class="cn(
-    'size-12',
-    catalystStore.sidebarCollapsed ? 'flex-1' : ''
-  )"
-/>
+      <Secyourflow :class="cn('size-12', catalystStore.sidebarCollapsed ? 'flex-1' : '')" />
 
       <h1 class="text-xl font-bold" v-if="!catalystStore.sidebarCollapsed">SecYourFlow</h1>
     </div>
