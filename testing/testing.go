@@ -31,7 +31,7 @@ type UserTest struct {
 	ExpectedEvents     map[string]int
 }
 
-type catalystTest struct {
+type secyourflowTest struct {
 	baseTest  BaseTest
 	userTests []UserTest
 }

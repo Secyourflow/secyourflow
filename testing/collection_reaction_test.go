@@ -8,7 +8,7 @@ import (
 func TestReactionsCollection(t *testing.T) {
 	t.Parallel()
 
-	testSets := []catalystTest{
+	testSets := []secyourflowTest{
 		{
 			baseTest: BaseTest{
 				Name:   "ListReactions",

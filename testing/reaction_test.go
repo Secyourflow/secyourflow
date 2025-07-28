@@ -19,7 +19,7 @@ func TestWebhookReactions(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	testSets := []catalystTest{
+	testSets := []secyourflowTest{
 		{
 			baseTest: BaseTest{
 				Name:           "TriggerWebhookReaction",
@@ -76,7 +76,7 @@ func TestHookReactions(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	testSets := []catalystTest{
+	testSets := []secyourflowTest{
 		{
 			baseTest: BaseTest{
 				Name:           "TriggerHookReaction",

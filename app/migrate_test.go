@@ -13,11 +13,11 @@ import (
 func Test_MigrateDBsDown(t *testing.T) {
 	t.Parallel()
 
-	catalystApp, _, cleanup := secyourflowTesting.App(t)
+	secyourflowApp, _, cleanup := secyourflowTesting.App(t)
 	defer cleanup()
 
-	_, err := catalystApp.Dao().FindCollectionByNameOrId(migrations.ReactionCollectionName)
+	_, err := secyourflowApp.Dao().FindCollectionByNameOrId(migrations.ReactionCollectionName)
 	require.NoError(t, err)
 
-	require.NoError(t, app.MigrateDBsDown(catalystApp))
+	require.NoError(t, app.MigrateDBsDown(secyourflowApp))
 }

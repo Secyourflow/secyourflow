@@ -7,30 +7,30 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/lagzenthakuri/secyourflow/app"
-	catalystTesting "github.com/lagzenthakuri/secyourflow/testing"
+	secyourflowTesting "github.com/lagzenthakuri/secyourflow/testing"
 )
 
 func TestHasFlag(t *testing.T) {
 	t.Parallel()
 
-	catalystApp, _, cleanup := catalystTesting.App(t)
+	secyourflowApp, _, cleanup := secyourflowTesting.App(t)
 	defer cleanup()
 
 	// stage 1
-	assert.False(t, app.HasFlag(catalystApp, "test"))
+	assert.False(t, app.HasFlag(secyourflowApp, "test"))
 
 	// stage 2
-	require.NoError(t, app.SetFlags(catalystApp, []string{"test"}))
-	assert.True(t, app.HasFlag(catalystApp, "test"))
+	require.NoError(t, app.SetFlags(secyourflowApp, []string{"test"}))
+	assert.True(t, app.HasFlag(secyourflowApp, "test"))
 }
 
 func Test_flags(t *testing.T) {
 	t.Parallel()
 
-	catalystApp, _, cleanup := catalystTesting.App(t)
+	secyourflowApp, _, cleanup := secyourflowTesting.App(t)
 	defer cleanup()
 
-	got, err := app.Flags(catalystApp)
+	got, err := app.Flags(secyourflowApp)
 	require.NoError(t, err)
 
 	want := []string{}
@@ -40,29 +40,29 @@ func Test_flags(t *testing.T) {
 func Test_setFlags(t *testing.T) {
 	t.Parallel()
 
-	catalystApp, _, cleanup := catalystTesting.App(t)
+	secyourflowApp, _, cleanup := secyourflowTesting.App(t)
 	defer cleanup()
 
 	// stage 1
-	require.NoError(t, app.SetFlags(catalystApp, []string{"test"}))
+	require.NoError(t, app.SetFlags(secyourflowApp, []string{"test"}))
 
-	got, err := app.Flags(catalystApp)
+	got, err := app.Flags(secyourflowApp)
 	require.NoError(t, err)
 
 	assert.ElementsMatch(t, []string{"test"}, got)
 
 	// stage 2
-	require.NoError(t, app.SetFlags(catalystApp, []string{"test2"}))
+	require.NoError(t, app.SetFlags(secyourflowApp, []string{"test2"}))
 
-	got, err = app.Flags(catalystApp)
+	got, err = app.Flags(secyourflowApp)
 	require.NoError(t, err)
 
 	assert.ElementsMatch(t, []string{"test2"}, got)
 
 	// stage 3
-	require.NoError(t, app.SetFlags(catalystApp, []string{"test", "test2"}))
+	require.NoError(t, app.SetFlags(secyourflowApp, []string{"test", "test2"}))
 
-	got, err = app.Flags(catalystApp)
+	got, err = app.Flags(secyourflowApp)
 	require.NoError(t, err)
 
 	assert.ElementsMatch(t, []string{"test", "test2"}, got)

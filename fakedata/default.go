@@ -30,7 +30,7 @@ func defaultData() map[string]map[string]map[string]any {
 		reactionUpdated = reactionCreated.Add(time.Minute * 5)
 	)
 
-	createTicketActionData := `{"requirements":"pocketbase","script":"import sys\nimport json\nimport random\nimport os\n\nfrom pocketbase import PocketBase\n\n# Connect to the PocketBase server\nclient = PocketBase(os.environ[\"CATALYST_APP_URL\"])\nclient.auth_store.save(token=os.environ[\"CATALYST_TOKEN\"])\n\nnewtickets = client.collection(\"tickets\").get_list(1, 200, {\"filter\": 'name = \"New Ticket\"'})\nfor ticket in newtickets.items:\n\tclient.collection(\"tickets\").delete(ticket.id)\n\n# Create a new ticket\nclient.collection(\"tickets\").create({\n\t\"name\": \"New Ticket\",\n\t\"type\": \"alert\",\n\t\"open\": True,\n})"}`
+	createTicketActionData := `{"requirements":"pocketbase","script":"import sys\nimport json\nimport random\nimport os\n\nfrom pocketbase import PocketBase\n\n# Connect to the PocketBase server\nclient = PocketBase(os.environ[\"SECYOURFLOW_APP_URL\"])\nclient.auth_store.save(token=os.environ[\"SECYOURFLOW_TOKEN\"])\n\nnewtickets = client.collection(\"tickets\").get_list(1, 200, {\"filter\": 'name = \"New Ticket\"'})\nfor ticket in newtickets.items:\n\tclient.collection(\"tickets\").delete(ticket.id)\n\n# Create a new ticket\nclient.collection(\"tickets\").create({\n\t\"name\": \"New Ticket\",\n\t\"type\": \"alert\",\n\t\"open\": True,\n})"}`
 
 	return map[string]map[string]map[string]any{
 		migrations.TicketCollectionName: {
@@ -159,8 +159,8 @@ func ValidateDefaultData(app core.App) error { //nolint:cyclop,gocognit
 		return fmt.Errorf(`name does not match: got %q, want "Test User"`, userRecord.Get("name"))
 	}
 
-	if userRecord.Get("email") != "user@catalyst-soar.com" {
-		return fmt.Errorf(`email does not match: got %q, want "user@catalyst-soar.com"`, userRecord.Get("email"))
+	if userRecord.Get("email") != "user@secyourflow-soar.com" {
+		return fmt.Errorf(`email does not match: got %q, want "user@secyourflow-soar.com"`, userRecord.Get("email"))
 	}
 
 	if !userRecord.Verified() {

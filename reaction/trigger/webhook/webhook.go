@@ -121,21 +121,21 @@ func findByWebhookTrigger(dao *daos.Dao, path string) (*models.Record, *Webhook,
 }
 
 func writeOutput(c echo.Context, output []byte) error {
-	var catalystResponse webhook.Response
-	if err := json.Unmarshal(output, &catalystResponse); err == nil && catalystResponse.StatusCode != 0 {
-		for key, values := range catalystResponse.Headers {
+	var secyourflowResponse webhook.Response
+	if err := json.Unmarshal(output, &secyourflowResponse); err == nil && secyourflowResponse.StatusCode != 0 {
+		for key, values := range secyourflowResponse.Headers {
 			for _, value := range values {
 				c.Response().Header().Add(key, value)
 			}
 		}
 
-		if catalystResponse.IsBase64Encoded {
-			output, err = base64.StdEncoding.DecodeString(catalystResponse.Body)
+		if secyourflowResponse.IsBase64Encoded {
+			output, err = base64.StdEncoding.DecodeString(secyourflowResponse.Body)
 			if err != nil {
 				return fmt.Errorf("error decoding base64 body: %w", err)
 			}
 		} else {
-			output = []byte(catalystResponse.Body)
+			output = []byte(secyourflowResponse.Body)
 		}
 	}
 

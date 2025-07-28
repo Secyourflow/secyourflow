@@ -16,7 +16,7 @@ import (
 func App(t *testing.T) (*pocketbase.PocketBase, *Counter, func()) {
 	t.Helper()
 
-	temp, err := os.MkdirTemp("", "catalyst_test_data")
+	temp, err := os.MkdirTemp("", "secyourflow_test_data")
 	if err != nil {
 		t.Fatal(err)
 	}

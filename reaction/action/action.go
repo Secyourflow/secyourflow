@@ -29,8 +29,8 @@ func Run(ctx context.Context, app core.App, actionName, actionData, payload stri
 		}
 
 		a.SetEnv([]string{
-			"CATALYST_APP_URL=" + app.Settings().Meta.AppUrl,
-			"CATALYST_TOKEN=" + token,
+			"SECYOURFLOW_APP_URL=" + app.Settings().Meta.AppUrl,
+			"SECYOURFLOW_TOKEN=" + token,
 		})
 	}
 

@@ -7,13 +7,13 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/lagzenthakuri/secyourflow/fakedata"
-	catalystTesting "github.com/lagzenthakuri/secyourflow/testing"
+	secyourflowTesting "github.com/lagzenthakuri/secyourflow/testing"
 )
 
 func Test_records(t *testing.T) {
 	t.Parallel()
 
-	app, _, cleanup := catalystTesting.App(t)
+	app, _, cleanup := secyourflowTesting.App(t)
 	defer cleanup()
 
 	got, err := fakedata.Records(app, 2, 2)
@@ -25,7 +25,7 @@ func Test_records(t *testing.T) {
 func TestGenerate(t *testing.T) {
 	t.Parallel()
 
-	app, _, cleanup := catalystTesting.App(t)
+	app, _, cleanup := secyourflowTesting.App(t)
 	defer cleanup()
 
 	err := fakedata.Generate(app, 0, 0)

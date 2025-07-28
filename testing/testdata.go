@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	adminEmail   = "admin@catalyst-soar.com"
-	analystEmail = "analyst@catalyst-soar.com"
+	adminEmail   = "admin@secyourflow-soar.com"
+	analystEmail = "analyst@secyourflow-soar.com"
 )
 
 func defaultTestData(t *testing.T, app core.App) {

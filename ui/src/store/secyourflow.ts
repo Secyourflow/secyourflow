@@ -6,7 +6,7 @@ type State = {
   sidebarCollapsed: Ref<boolean>
 }
 
-export const useCatalystStore = defineStore('catalyst', {
+export const useSecyourflowStore = defineStore('secyourflow', {
   state: (): State => ({
     sidebarCollapsed: useLocalStorage('sidebarCollapsed', false)
   }),

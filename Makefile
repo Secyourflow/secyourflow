@@ -77,6 +77,6 @@ default-data:
 	rm -rf secyourflow_data
 	go run . default-data
 
-.PHONY: serve-ui
+.PHONY: server-ui
 serve-ui:
 	cd ui && bun dev --port 3000

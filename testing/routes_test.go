@@ -8,7 +8,7 @@ import (
 func Test_Routes(t *testing.T) {
 	t.Parallel()
 
-	testSets := []catalystTest{
+	testSets := []secyourflowTest{
 		{
 			baseTest: BaseTest{
 				Name:   "Root",

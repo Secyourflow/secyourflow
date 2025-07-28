@@ -21,7 +21,7 @@ func (a *Python) SetEnv(env []string) {
 }
 
 func (a *Python) Run(ctx context.Context, payload string) ([]byte, error) {
-	tempDir, err := os.MkdirTemp("", "catalyst_action")
+	tempDir, err := os.MkdirTemp("", "secyourflow_action")
 	if err != nil {
 		return nil, err
 	}

@@ -12,12 +12,12 @@ builds:
       - darwin
 
 dockers:
-  - ids: [ catalyst ]
+  - ids: [ secyourflow ]
     dockerfile: docker/Dockerfile
     image_templates:
-      - "ghcr.io/securitybrewery/catalyst:main"
-      - "{{if not .Prerelease}}ghcr.io/securitybrewery/catalyst:latest{{end}}"
-      - "ghcr.io/securitybrewery/catalyst:{{.Tag}}"
+      - "ghcr.io/securitybrewery/secyourflow:main"
+      - "{{if not .Prerelease}}ghcr.io/securitybrewery/secyourflow:latest{{end}}"
+      - "ghcr.io/securitybrewery/secyourflow:{{.Tag}}"
     extra_files:
       - docker/entrypoint.sh
 

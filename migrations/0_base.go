@@ -26,7 +26,7 @@ func baseUp(db dbx.Builder) error {
 
 func settingsUp(dao *daos.Dao) error {
 	s := settings.New()
-	s.Meta.AppName = "Catalyst"
+	s.Meta.AppName = "Secyourflow"
 	s.Meta.HideControls = false
 
 	return dao.SaveSettings(s)

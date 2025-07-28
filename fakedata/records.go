@@ -96,7 +96,7 @@ func userRecords(dao *daos.Dao, count int) ([]*models.Record, error) {
 		_ = record.SetUsername("u_" + security.RandomStringWithAlphabet(5, "123456789"))
 		_ = record.SetPassword("1234567890")
 		record.Set("name", gofakeit.Name())
-		record.Set("email", gofakeit.Username()+"@catalyst-soar.com")
+		record.Set("email", gofakeit.Username()+"@secyourflow-soar.com")
 		_ = record.SetVerified(true)
 
 		records = append(records, record)
@@ -116,7 +116,7 @@ func testUser(dao *daos.Dao) (*models.Record, error) {
 	_ = record.SetUsername("u_test")
 	_ = record.SetPassword("1234567890")
 	record.Set("name", "Test User")
-	record.Set("email", "user@catalyst-soar.com")
+	record.Set("email", "user@secyourflow-soar.com")
 	_ = record.SetVerified(true)
 
 	return record, nil
@@ -303,8 +303,8 @@ import os
 from pocketbase import PocketBase
 
 # Connect to the PocketBase server
-client = PocketBase(os.environ["CATALYST_APP_URL"])
-client.auth_store.save(token=os.environ["CATALYST_TOKEN"])
+client = PocketBase(os.environ["SECYOURFLOW_APP_URL"])
+client.auth_store.save(token=os.environ["SECYOURFLOW_TOKEN"])
 
 newtickets = client.collection("tickets").get_list(1, 200, {"filter": 'name = "New Ticket"'})
 for ticket in newtickets.items:
@@ -329,8 +329,8 @@ event = json.loads(sys.argv[1])
 body = json.loads(event["body"])
 
 # Connect to the PocketBase server
-client = PocketBase(os.environ["CATALYST_APP_URL"])
-client.auth_store.save(token=os.environ["CATALYST_TOKEN"])
+client = PocketBase(os.environ["SECYOURFLOW_APP_URL"])
+client.auth_store.save(token=os.environ["SECYOURFLOW_TOKEN"])
 
 # Create a new ticket
 client.collection("tickets").create({
@@ -350,8 +350,8 @@ from pocketbase import PocketBase
 ticket = json.loads(sys.argv[1])
 
 # Connect to the PocketBase server
-client = PocketBase(os.environ["CATALYST_APP_URL"])
-client.auth_store.save(token=os.environ["CATALYST_TOKEN"])
+client = PocketBase(os.environ["SECYOURFLOW_APP_URL"])
+client.auth_store.save(token=os.environ["SECYOURFLOW_TOKEN"])
 
 # Get a random user
 users = client.collection("users").get_list(1, 200)

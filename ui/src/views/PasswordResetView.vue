@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CatalystLogo from '@/components/common/SecYourFlowLogo.vue'
+import SecyourflowLogo from '@/components/common/SecYourFlowLogo.vue'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -44,7 +44,7 @@ const resetPassword = () => {
     <Card class="m-auto w-96">
       <CardHeader class="flex flex-row justify-between">
         <CardTitle class="flex flex-row">
-          <CatalystLogo class="size-12" />
+          <SecyourflowLogo class="size-12" />
           <div>
             <h1 class="text-lg font-bold">SecYourFlow</h1>
             <div class="text-muted-foreground">Password Reset</div>
