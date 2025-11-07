@@ -83,6 +83,9 @@ const validationSchema = computed(() => {
   }
 
   Object.keys(props.selectedType.schema.properties).forEach((key) => {
+    // Skip severity as it's now a native field
+    if (key === 'severity') return
+    
     const property = props.selectedType.schema.properties[key]
     if (property.type === 'string') {
       fields[key] =
@@ -114,6 +117,18 @@ const name = ref('')
 const description = ref('')
 const severity = ref<'low' | 'medium' | 'high' | 'critical' | ''>('')
 const deadline = ref<Date | undefined>(undefined)
+
+// Filter out severity from schema since it's now a native field
+const filteredSchema = computed(() => {
+  const filtered = { ...props.selectedType.schema }
+  const properties = { ...filtered.properties }
+  delete properties.severity
+  filtered.properties = properties
+  if (filtered.required) {
+    filtered.required = filtered.required.filter((field: string) => field !== 'severity')
+  }
+  return filtered
+})
 
 const getSeverityColor = (sev: string) => {
   switch (sev) {
@@ -231,7 +246,7 @@ watch(
           </FormItem>
         </FormField>
 
-        <JSONSchemaFormFields v-model="state" :schema="selectedType.schema" />
+        <JSONSchemaFormFields v-model="state" :schema="filteredSchema" />
 
         <DialogFooter class="mt-4 sm:justify-start">
           <Button type="submit"> Save </Button>

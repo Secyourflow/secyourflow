@@ -7,6 +7,6 @@ const props = defineProps<{
 </script>
 
 <template>
-  <img src="@/assets/svf.png" alt="SecYourFlow Logo" :class="cn('dark:hidden', props.class)" />
-  <img src="@/assets/svf.png" alt="SecYourFlow Logo" :class="cn('hidden dark:flex', props.class)" />
+  <img src="@/assets/secyourflow-removebg.png" alt="SecYourFlow Logo" :class="cn('dark:hidden', props.class)" />
+  <img src="@/assets/secyourflow-removebg.png" alt="SecYourFlow Logo" :class="cn('hidden dark:flex', props.class)" />
 </template>

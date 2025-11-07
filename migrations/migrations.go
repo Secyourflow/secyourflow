@@ -15,4 +15,5 @@ func Register() {
 	migrations.Register(dashboardCountsViewUpdateUp, dashboardCountsViewUpdateDown, "1700000008_dashboardview.go")
 	migrations.Register(reactionsUpdateUp, nil, "1700000009_reactions_update.go")
 	migrations.Register(severityDeadlineUp, severityDeadlineDown, "1700000010_severity_deadline.go")
+	migrations.Register(testSeverityDataUp, testSeverityDataDown, "1700000011_test_severity_data.go")
 }

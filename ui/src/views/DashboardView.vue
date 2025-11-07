@@ -40,6 +40,22 @@ const count = (id: string) => {
   return s[0].count
 }
 
+// Query for severity counts
+const {
+  data: severityData
+} = useQuery({
+  queryKey: ['tickets', 'severity_counts'],
+  queryFn: (): Promise<Array<any>> => pb.collection('tickets').getFullList({
+    filter: 'open = true && severity != ""',
+    fields: 'severity'
+  })
+})
+
+const severityCount = (severity: string) => {
+  if (!severityData.value) return 0
+  return severityData.value.filter((ticket) => ticket.severity === severity).length
+}
+
 onMounted(() => {
   if (!pb.authStore.model) {
     router.push({ name: 'login' })
@@ -52,7 +68,7 @@ onMounted(() => {
     <ColumnHeader title="Dashboard" />
     <ColumnBody>
       <ColumnBodyContainer
-        class="grid grid-cols-1 grid-rows-[100px_100px_100px_100px] md:grid-cols-2 md:grid-rows-[100px_100px] xl:grid-cols-4 xl:grid-rows-[100px]"
+        class="grid grid-cols-1 grid-rows-[100px_100px_100px_100px_100px_100px_100px_100px] md:grid-cols-2 md:grid-rows-[100px_100px_100px_100px] xl:grid-cols-4 xl:grid-rows-[100px_100px]"
       >
         <Card>
           <CardHeader>
@@ -76,6 +92,30 @@ onMounted(() => {
           <CardHeader>
             <CardTitle>{{ count('reactions') }}</CardTitle>
             <CardDescription>Reactions</CardDescription>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle class="text-red-600">{{ severityCount('critical') }}</CardTitle>
+            <CardDescription>Critical Severity</CardDescription>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle class="text-orange-600">{{ severityCount('high') }}</CardTitle>
+            <CardDescription>High Severity</CardDescription>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle class="text-yellow-600">{{ severityCount('medium') }}</CardTitle>
+            <CardDescription>Medium Severity</CardDescription>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle class="text-blue-600">{{ severityCount('low') }}</CardTitle>
+            <CardDescription>Low Severity</CardDescription>
           </CardHeader>
         </Card>
         <Card>
