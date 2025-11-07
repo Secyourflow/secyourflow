@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import OpenTasks from '@/components/dashboard/OpenTasks.vue'
 import OpenTickets from '@/components/dashboard/OpenTickets.vue'
+import SeverityCount from '@/components/dashboard/SeverityCount.vue'
 import TicketOverTime from '@/components/dashboard/TicketOverTime.vue'
 import TicketTypes from '@/components/dashboard/TicketTypes.vue'
+import UpcomingDeadlines from '@/components/dashboard/UpcomingDeadlines.vue'
 import ColumnBody from '@/components/layout/ColumnBody.vue'
 import ColumnBodyContainer from '@/components/layout/ColumnBodyContainer.vue'
 import ColumnHeader from '@/components/layout/ColumnHeader.vue'
@@ -107,12 +109,28 @@ onMounted(() => {
             <TicketTypes />
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Severity by Count</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <SeverityCount />
+          </CardContent>
+        </Card>
         <Card class="xl:col-span-2">
           <CardHeader>
             <CardTitle>Tickets Per Week</CardTitle>
           </CardHeader>
           <CardContent>
             <TicketOverTime />
+          </CardContent>
+        </Card>
+        <Card class="xl:col-span-2">
+          <CardHeader>
+            <CardTitle>Upcoming Deadlines</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <UpcomingDeadlines />
           </CardContent>
         </Card>
         <Card class="xl:col-span-2">

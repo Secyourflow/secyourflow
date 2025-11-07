@@ -18,6 +18,8 @@ export interface Ticket {
   schema: JSONSchema
   state: any
   owner: string
+  severity?: 'low' | 'medium' | 'high' | 'critical'
+  deadline?: string
 
   created: string
   updated: string

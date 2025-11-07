@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import JSONSchemaFormFields from '@/components/form/JSONSchemaFormFields.vue'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/v-calendar'
 import {
   Dialog,
   DialogClose,
@@ -13,15 +15,26 @@ import {
 } from '@/components/ui/dialog'
 import { FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+
+import { CalendarIcon } from 'lucide-vue-next'
 
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { format } from 'date-fns'
 import { defineRule, useForm } from 'vee-validate'
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { pb } from '@/lib/pocketbase'
 import type { Ticket, Type } from '@/lib/types'
-import { handleError } from '@/lib/utils'
+import { cn, handleError } from '@/lib/utils'
 
 const queryClient = useQueryClient()
 const router = useRouter()
@@ -43,7 +56,9 @@ const addTicketMutation = useMutation({
       type: props.selectedType.id,
       schema: props.selectedType.schema,
       state: state.value,
-      owner: pb.authStore.model.id
+      owner: pb.authStore.model.id,
+      severity: severity.value || '',
+      deadline: deadline.value ? deadline.value.toISOString() : ''
     })
   },
   onSuccess: (data: Ticket) => {
@@ -97,6 +112,23 @@ const onSubmit = handleSubmit((values: any) => {
 const state = ref({})
 const name = ref('')
 const description = ref('')
+const severity = ref<'low' | 'medium' | 'high' | 'critical' | ''>('')
+const deadline = ref<Date | undefined>(undefined)
+
+const getSeverityColor = (sev: string) => {
+  switch (sev) {
+    case 'critical':
+      return 'destructive'
+    case 'high':
+      return 'default'
+    case 'medium':
+      return 'secondary'
+    case 'low':
+      return 'outline'
+    default:
+      return 'outline'
+  }
+}
 
 watch(
   () => isOpen.value,
@@ -105,6 +137,8 @@ watch(
       name.value = ''
       description.value = ''
       state.value = {}
+      severity.value = ''
+      deadline.value = undefined
     }
   }
 )
@@ -136,6 +170,63 @@ watch(
           <FormItem>
             <FormLabel for="description" class="text-right">Description</FormLabel>
             <Input id="description" class="col-span-3" v-bind="componentField" />
+            <FormMessage />
+          </FormItem>
+        </FormField>
+
+        <FormField name="severity" v-model="severity">
+          <FormItem>
+            <FormLabel for="severity" class="text-right">Severity</FormLabel>
+            <Select v-model="severity">
+              <SelectTrigger>
+                <SelectValue placeholder="Select severity">
+                  <Badge v-if="severity" :variant="getSeverityColor(severity)" class="text-xs">
+                    {{ severity }}
+                  </Badge>
+                  <span v-else class="text-xs text-muted-foreground">None</span>
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="low">
+                  <Badge variant="outline" class="text-xs">Low</Badge>
+                </SelectItem>
+                <SelectItem value="medium">
+                  <Badge variant="secondary" class="text-xs">Medium</Badge>
+                </SelectItem>
+                <SelectItem value="high">
+                  <Badge variant="default" class="text-xs">High</Badge>
+                </SelectItem>
+                <SelectItem value="critical">
+                  <Badge variant="destructive" class="text-xs">Critical</Badge>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        </FormField>
+
+        <FormField name="deadline" v-model="deadline">
+          <FormItem>
+            <FormLabel for="deadline" class="text-right">Deadline</FormLabel>
+            <Popover>
+              <PopoverTrigger as-child>
+                <Button
+                  variant="outline"
+                  :class="
+                    cn(
+                      'w-full justify-start text-left font-normal',
+                      !deadline && 'text-muted-foreground'
+                    )
+                  "
+                >
+                  <CalendarIcon class="mr-2 h-4 w-4" />
+                  {{ deadline ? format(deadline, 'PPP') : 'Pick a date' }}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent class="w-auto p-0">
+                <Calendar v-model="deadline" />
+              </PopoverContent>
+            </Popover>
             <FormMessage />
           </FormItem>
         </FormField>

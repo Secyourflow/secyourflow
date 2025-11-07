@@ -49,6 +49,24 @@ func typeRecords(dao *daos.Dao) []*models.Record {
 	records = append(records, record)
 
 	record = models.NewRecord(collection)
+	record.SetId("vulnerability")
+	record.Set("singular", "Vulnerability")
+	record.Set("plural", "Vulnerabilities")
+	record.Set("icon", "Shield")
+	record.Set("schema", s(map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"severity": map[string]any{
+				"title": "Severity",
+				"enum":  []string{"Low", "Medium", "High", "Critical"},
+			},
+		},
+		"required": []string{"severity"},
+	}))
+
+	records = append(records, record)
+
+	record = models.NewRecord(collection)
 	record.SetId("alert")
 	record.Set("singular", "Alert")
 	record.Set("plural", "Alerts")
